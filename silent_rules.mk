@@ -27,4 +27,9 @@ endef
 
 $(eval $(call vrule,AT,))
 
-$(eval $(call vrule,GEN,GEN $$(or $$1,$$@)))
+# Create $(val#) macros to use positional arguments without undefined variable
+# warnings.
+val=$$(and $$(filter-out undefined,$$(origin $1)),$$($1))
+$(foreach arg,1 2,$(eval val$(arg) = $(call val,$(arg))))
+
+$(eval $(call vrule,GEN,GEN $$(or $$(val1),$$@)))
