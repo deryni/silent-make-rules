@@ -27,4 +27,4 @@ endef
 
 $(eval $(call vrule,AT,))
 
-$(eval $(call vrule,GEN,GEN $$@))
+$(eval $(call vrule,GEN,GEN $$(or $$1,$$@)))
