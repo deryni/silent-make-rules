@@ -1,6 +1,8 @@
 # Don't like the default SR prefix on the silent rules?
 # Define this variable before you include this file to change it.
 SR_PREFIX ?= SR
+# Need more arguments in your silent rules? Set this to the maximum you need.
+$(SR_PREFIX)_arg_values ?= 1 2
 
 $(SR_PREFIX)_DEFAULT_VERBOSITY = 0
 $(SR_PREFIX)_SILENT_VERBOSITY = -1
@@ -35,6 +37,6 @@ $(eval $(call vrule,AT,))
 # Create $(val#) macros to use positional arguments without undefined variable
 # warnings.
 val=$$(and $$(filter-out undefined,$$(origin $1)),$$($1))
-$(foreach arg,1 2,$(eval val$(arg) = $(call val,$(arg))))
+$(foreach arg,$($(SR_PREFIX)_arg_values),$(eval val$(arg) = $(call val,$(arg))))
 
 $(eval $(call vrule,GEN,GEN $$(or $$(val1),$$@)))
