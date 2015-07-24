@@ -1,3 +1,5 @@
+# Don't like the default SR prefix on the silent rules?
+# Define this variable before you include this file to change it.
 SR_PREFIX ?= SR
 
 $(SR_PREFIX)_DEFAULT_VERBOSITY = 0
