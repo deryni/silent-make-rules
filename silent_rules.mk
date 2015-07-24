@@ -5,6 +5,9 @@ SR_PREFIX ?= SR
 $(SR_PREFIX)_DEFAULT_VERBOSITY = 0
 $(SR_PREFIX)_SILENT_VERBOSITY = -1
 
+# You can set this in your main makefile to use a different default value.
+# You can set this on the command line to override the default value for that
+# make execution.
 V ?= $($(SR_PREFIX)_DEFAULT_VERBOSITY)
 
 $(SR_PREFIX)_SILENT := $(and $(filter $($(SR_PREFIX)_SILENT_VERBOSITY),$(V)),silent)
