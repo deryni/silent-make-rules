@@ -102,8 +102,9 @@ The people behind the autotools came up with a very clever solution/hack to
 this problem. This project is my implementation of the same idea without the
 rest of the autotooling.
 
+Using this `Makefile`:
+
 ```
-$ rm site1.html
 $ cat Makefile
 include silent_rules.mk
 
@@ -120,16 +121,21 @@ all: site1.html
 .DELETE_ON_ERROR:
 .SUFFIXES:
 MAKEFLAGS += -rR
+```
+
+We get this output:
+
+```
+$ rm site1.html
 $ make
 GEN site1.html
 $
 ```
 
-Now that's much nicer. We get a clean message telling us what make did without
+Now that's **much** nicer. We get a clean message telling us what make did without
 any extraneous information.
 
 But what if we **do** want to know what make is doing?
-
 
 ```
 $ rm site1.html
