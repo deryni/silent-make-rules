@@ -5,7 +5,8 @@ GNU Make is an amazing tool but by default it is a bit verbose.
 Here's a simple exmaple makefile which creates a small static HTML page from a
 few snippets of various bits of content.
 
-```Makefile
+```
+Makefile
 .PHONY: all
 all: site1.html
 
@@ -129,7 +130,6 @@ any extraneous information.
 
 But what if we **do** want to know what make is doing?
 
-Or we don't even want that small amount of output?
 
 ```
 $ rm site1.html
@@ -142,6 +142,12 @@ html-site1/talkinghead.html >> site1.html
 cat js-site1/ads.js js-site1/breadcrumb.js js-site1/navbar.js
 js-site1/talkinghead.js >> site1.html
 cat footer.snip >> site1.html
+$
+```
+
+Or we don't even want that small amount of output?
+
+```
 $ rm site1.html
 $ make V=-1
 $
