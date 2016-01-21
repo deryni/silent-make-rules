@@ -1,16 +1,18 @@
 # Don't like the default SR prefix on the silent rules?
 # Define this variable before you include this file to change it.
 SR_PREFIX ?= SR
+
 # Need more arguments in your silent rules? Set this to the maximum you need.
 $(SR_PREFIX)_arg_values ?= 1 2
 
+# Set V in your main makefile to use a different default value.
+# Set this on the command line to override it for that make execution.
+V ?= $($(SR_PREFIX)_DEFAULT_VERBOSITY)
+
+## EVERYTHING BELOW HERE IS INTERNAL. ##
+
 $(SR_PREFIX)_DEFAULT_VERBOSITY = 0
 $(SR_PREFIX)_SILENT_VERBOSITY = -1
-
-# You can set this in your main makefile to use a different default value.
-# You can set this on the command line to override the default value for that
-# make execution.
-V ?= $($(SR_PREFIX)_DEFAULT_VERBOSITY)
 
 $(SR_PREFIX)_SILENT := $(and $(filter $($(SR_PREFIX)_SILENT_VERBOSITY),$(V)),silent)
 $(SR_PREFIX)_DEFAULT := $(and $(filter $($(SR_PREFIX)_DEFAULT_VERBOSITY),$(V)),default)
