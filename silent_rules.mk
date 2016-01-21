@@ -22,10 +22,15 @@ $(SR_PREFIX)_NOT_SILENT := $(filter-out silent,$($(SR_PREFIX)_VERBOSITY_MODE))
 $(SR_PREFIX)_NOT_DEFAULT := $(filter-out default,$($(SR_PREFIX)_VERBOSITY_MODE))
 $(SR_PREFIX)_NOT_VERBOSE := $(filter-out verbose,$($(SR_PREFIX)_VERBOSITY_MODE))
 
+# Create $(val#) macros to use positional arguments without undefined variable
+# warnings.
+val=$$(and $$(filter-out undefined,$$(origin $1)),$$($1))
+$(foreach arg,$($(SR_PREFIX)_arg_values),$(eval val$(arg) = $(call val,$(arg))))
+
 define vrule
 $(SR_PREFIX)_V_$(1) = $$($(SR_PREFIX)_V_$(1)_$$(V))
 $(SR_PREFIX)_V_$(1)_ = $$($(SR_PREFIX)_V_$(1)_$$($(SR_PREFIX)_DEFAULT_VERBOSITY))
-$(SR_PREFIX)_V_$(1)_$($(SR_PREFIX)_DEFAULT_VERBOSITY) = @printf -- %s$(and $(2),\\n) '$$(subst ','\'',$2)';
+$(SR_PREFIX)_V_$(1)_$($(SR_PREFIX)_DEFAULT_VERBOSITY) = @printf -- %s$(and $(val2),\\n) '$$(subst ','\'',$(val2))';
 $(SR_PREFIX)_V_$(1)_$($(SR_PREFIX)_SILENT_VERBOSITY) := @
 ifndef $(SR_PREFIX)_V_$(1)_$(V)
     $(SR_PREFIX)_V_$(1)_$(V) :=
@@ -33,10 +38,5 @@ endif
 endef
 
 $(eval $(call vrule,AT,))
-
-# Create $(val#) macros to use positional arguments without undefined variable
-# warnings.
-val=$$(and $$(filter-out undefined,$$(origin $1)),$$($1))
-$(foreach arg,$($(SR_PREFIX)_arg_values),$(eval val$(arg) = $(call val,$(arg))))
 
 $(eval $(call vrule,GEN,GEN $$(or $$(val1),$$@)))
