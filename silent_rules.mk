@@ -37,6 +37,6 @@ ifndef $(SR_PREFIX)_V_$(1)_$(V)
 endif
 endef
 
-$(eval $(call vrule,AT,))
+$(eval $(call vrule,AT))
 
 $(eval $(call vrule,GEN,GEN $$(or $$(val1),$$@)))
