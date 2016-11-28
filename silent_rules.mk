@@ -41,6 +41,7 @@ endef
 
 $(eval $(call vrule,AT))
 
+$(eval $(call vrule,ECHO,$$(or $$(val1),ECHO)))
 $(eval $(call vrule,GEN,GEN $$(or $$(val1),$$@)))
 
 # The MIT License (MIT)
